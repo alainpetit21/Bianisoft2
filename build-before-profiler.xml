@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Bianisoft" default="default" basedir=".">
+    <description>Builds, tests, and runs the project Bianisoft</description>
+    <import file="nbproject/build-impl.xml"/>
+
+	<target name="-post-jar">
+		<copy todir="dist/lib/linux">
+			<fileset dir="../../Libs/lwjgl-2.9.3/native/linux">
+				<include name="*"/>
+			</fileset>
+		</copy>
+		<copy todir="dist/lib/macosx">
+			<fileset dir="../../Libs/lwjgl-2.9.3/native/macosx">
+				<include name="*"/>
+			</fileset>
+		</copy>
+		<copy todir="dist/lib/solaris">
+			<fileset dir="../../Libs/lwjgl-2.9.3/native/solaris">
+				<include name="*"/>
+			</fileset>
+		</copy>
+		<copy todir="dist/lib/windows">
+			<fileset dir="../../Libs/lwjgl-2.9.3/native/windows">
+				<include name="*"/>
+			</fileset>
+		</copy>
+		<copy todir="../../Libs/bianisoft">
+			<fileset dir="dist">
+				<include name="*.jar"/>
+			</fileset>
+		</copy>
+	</target>
+</project>

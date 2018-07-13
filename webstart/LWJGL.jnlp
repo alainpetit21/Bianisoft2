@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0+" codebase="./" href="LWJGL.jnlp">
+	<information>
+		<title>LWJGL libraries</title>
+		<vendor>Alain Petit</vendor>
+		<homepage href="http://www.bianisoft.com/"/>
+		<description>LWJGL libraries</description>
+		<description kind="short">All JARs and native libraries for LWJGL.</description>
+	</information>
+	<update check="background" policy="always"/>
+
+	<security>
+		<all-permissions/>
+	</security>
+
+	<resources>
+		<jar href="lib/jinput.jar"/>
+		<jar href="lib/lwjgl.jar"/>
+		<jar href="lib/lwjgl_util.jar"/>
+	</resources>
+
+	<resources os="Windows">
+		<nativelib href = "lib/windows/windows_natives.jar"/>
+	</resources>
+	<resources os="Linux">
+		<nativelib href = "lib/linux/linux_natives.jar"/>
+	</resources>
+	<resources os="Mac OS X">
+		<nativelib href = "lib/macosx/macosx_natives.jar"/>
+	</resources>
+
+	<component-desc />
+</jnlp>

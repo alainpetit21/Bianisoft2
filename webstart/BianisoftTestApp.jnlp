@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0+" codebase="./" href="BianisoftTestApp.jnlp" version="1.4">
+
+	<information>
+		<title>Bianisoft Test App Demo</title>
+		<vendor>Alain Petit</vendor>
+		<homepage href="http://www.bianisoft.com/"/>
+		<description>Bianisoft Test App Demo</description>
+		<description kind="short">Bianisoft Test App Demo</description>
+	</information>
+	<update check="background" policy="always"/>
+
+	<security>
+		<all-permissions/>
+	</security>
+
+	<resources>
+		<j2se href="http://java.sun.com/products/autodl/j2se" version="1.6+"/>
+		<property name="sun.java2d.noddraw" value="true"/>
+		<extension name="LWJGL" href="LWJGL.jnlp"/>
+		<jar href="BianisoftTestApp.jar" main="true" version="1.4"/>
+		<jar href="BianisoftTestApp_res.jar" version="1.4"/>
+		<jar href="lib/jogg-0.0.7.jar" version="0.0.7"/>
+		<jar href="lib/jorbis-0.0.15.jar" version="0.0.15"/>
+	</resources>
+
+	<applet-desc
+         name="Bianisoft Test Applet"
+         main-class="com.bianisoft.tests.AppletTest"
+         width="1024"
+         height="768">
+    </applet-desc>
+</jnlp>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objecttypes>
+ <objecttype name="Background" color="#ff0000"/>
+ <objecttype name="Button" color="#00ff00"/>
+ <objecttype name="Sprite" color="#0000ff"/>
+ <objecttype name="SpriteOneTimer" color="#000099"/>
+ <objecttype name="Label" color="#ffffff"/>
+ <objecttype name="LabelGradual" color="#cccccc"/>
+ <objecttype name="LabelTextField" color="#999999"/>
+ <objecttype name="Custom" color="#000000"/>
+</objecttypes>

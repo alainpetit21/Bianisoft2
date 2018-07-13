@@ -1,0 +1,250 @@
+<!-- Buildfile -->
+<project name="Bianisoft Test App" default="usage" basedir=".">
+	<taskdef name="proguard" classname="proguard.ant.ProGuardTask">
+		<classpath>
+			<pathelement location="../../Libs/proguard/proguard.jar"/>
+		</classpath>
+	</taskdef>
+
+	<taskdef name="izpack" classpath="../../Libs/izpack/standalone-compiler.jar"
+		classname="com.izforge.izpack.ant.IzPackTask"/>
+
+
+	<!-- properties -->
+	<property name="src" location="src"/>
+	<property name="res" location="res"/>
+	<property name="build" location="build"/>
+	<property name="dist" location="dist"/>
+
+
+	<!-- different classpaths -->
+	<path id="build.class.path">
+		<pathelement location="../../Libs/lwjgl-2.8.3/lwjgl.jar"/>
+		<pathelement location="../../Libs/lwjgl-2.8.3/lwjgl_util.jar"/>
+		<pathelement location="../../Libs/lwjgl-2.8.3/jinput.jar"/>
+		<pathelement location="../../Libs/jogg-0.0.7.jar"/>
+		<pathelement location="../../Libs/jorbis-0.0.15.jar"/>
+		<pathelement location="${java.home}/lib/plugin.jar"/>
+	</path>
+
+
+	<!-- usage -->
+	<target name="usage">
+		<echo message="command line arguments for build.sh or build.bat"/>
+		<echo message=""/>
+		<echo message="bindist      build .tar.gz and .zip binary distribution"/>
+		<echo message="all          build everything"/>
+		<echo message="clean        delete classfiles keep distribution files"/>
+		<echo message="distclean    delete all generated files"/>
+		<echo message=""/>
+	</target>
+
+
+	<!-- initialize directories -->
+	<target name="init">
+		<mkdir dir="${build}"/>
+		<mkdir dir="${dist}/lib"/>
+	</target>
+
+
+	<!-- compile -->
+	<target name="compile" depends="init">
+		<javac destdir="${build}" optimize="off" debug="on" source="1.6">
+			<src path="${src}"/>
+			<include name="com/**"/>
+			<classpath refid="build.class.path"/>
+		</javac>
+	</target>
+
+
+	<!-- compileres -->
+	<target name="compileres" depends="init">
+		<jar destfile="${dist}/BianisoftTestApp_res.jar" basedir="res" manifest="manifest.mf">
+			<include name="**/*"/>
+		</jar>
+	</target>
+
+
+	<!-- copy files -->
+	<target name="copy">
+		<copy todir="${dist}/lib">
+			<fileset dir="../../Libs/lwjgl-2.8.3">
+				<include name="*.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="${dist}/lib/linux">
+			<fileset dir="../../Libs/lwjgl-2.8.3/linux">
+				<include name="*.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="${dist}/lib/windows">
+			<fileset dir="../../Libs/lwjgl-2.8.3/windows">
+				<include name="*.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="${dist}/lib/macosx">
+			<fileset dir="../../Libs/lwjgl-2.8.3/macosx">
+				<include name="*.jar"/>
+			</fileset>
+		</copy>
+		<chmod perm="755">
+			<fileset dir="${dist}">
+				<include name="*.sh"/>
+			</fileset>
+		</chmod>
+		<fixcrlf srcdir="${dist}"
+			eol="crlf"
+			includes="*.bat"
+		/>
+		<fixcrlf srcdir="${dist}"
+			eol="lf"
+			includes="*.sh"
+		/> 		
+	</target>
+
+
+	<!-- jar -->
+	<target name="jar" depends="compile,compileres">
+		<jar destfile="${dist}/BianisoftTestApp.jar" basedir="${build}" manifest="manifest.mf">
+			<include name="com/**"/>
+		</jar>
+		<property name="classes" value="${java.home}/lib/rt.jar"/>
+		<property name="plugin" value="${java.home}/lib/plugin.jar"/>
+        <condition property="classes" value="${java.home}/../Classes/classes.jar">
+			<os name="Mac OS X"/>
+        </condition> 		
+		<!-- proguard printseeds="on" printusage="off" outjar="${dist}/lib/jake2.jar"
+			defaultpackage="" overloadaggressively="off" printmapping="JavaTestApp.map">
+			<injar name="JavaTestApp.jar"/>
+			<libraryjar name="lib/jsr231/jogl.jar"/>
+			<libraryjar name="lib/jsr231/gluegen-rt.jar"/>
+			<libraryjar name="${classes}"/>
+			<libraryjar name="${plugin}"/>
+			<keep access="public" name="com.bianisoft.tests.javatestapp.JavaTestApp">
+				<method name="main(java.lang.String[])"/>
+			</keep>
+		</proguard -->
+	</target>
+
+
+	<!-- everything -->
+	<target name="all" depends="bindist">
+	</target>
+
+
+	<!-- dist -->
+	<target name="dist" depends="jar,copy">
+	</target>
+
+
+	<!-- binary distribution -->
+	<target name="bindist" depends="dist">
+		<tar destfile="BianisoftTestApp.tar.gz" compression="gzip">
+			<tarfileset dir="${dist}" prefix="BianisoftTestApp" mode="755">
+				<include name="*.sh"/>
+			</tarfileset>
+			<tarfileset dir="${dist}" prefix="BianisoftTestApp">
+				<include name="**"/>
+				<exclude name="*.sh"/>
+			</tarfileset>
+		</tar>
+		<zip destfile="BianisoftTestApp.zip">
+			<zipfileset dir="${dist}" prefix="BianisoftTestApp">
+				<include name="**"/>
+			</zipfileset>
+		</zip>
+	</target>
+
+
+	<!-- webstart -->
+	<target name="webstart" depends="dist">
+		<copy todir="webstart">
+			<fileset dir="${dist}">
+				<include name="BianisoftTestApp.jar"/>
+				<include name="BianisoftTestApp_res.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="webstart/lib">
+			<fileset dir="../../Libs/lwjgl-2.8.3">
+				<include name="lwjgl.jar"/>
+				<include name="lwjgl_util.jar"/>
+				<include name="jinput.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="webstart/lib">
+			<fileset dir="../../Libs">
+				<include name="jogg-0.0.7.jar"/>
+				<include name="jorbis-0.0.15.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="webstart/lib/linux">
+			<fileset dir="../../Libs/lwjgl-2.8.3/linux">
+				<include name="linux_natives.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="webstart/lib/windows">
+			<fileset dir="../../Libs/lwjgl-2.8.3/windows">
+				<include name="windows_natives.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="webstart/lib/macosx">
+			<fileset dir="../../Libs/lwjgl-2.8.3/macosx">
+				<include name="macosx_natives.jar"/>
+			</fileset>
+		</copy>
+
+		<signjar keystore="../../keyBianisoft" alias="bianisoft" storepass="h9o83wxz">
+			<fileset dir="webstart/lib">
+				<include name="**/*.jar"/>
+			</fileset>
+			<fileset dir="webstart">
+				<include name="**/*.jar"/>
+			</fileset>
+		</signjar>
+	</target>
+
+
+	<!-- clean -->
+	<target name="clean">
+		<delete dir="${build}"/>
+	</target>
+
+
+	<!-- distclean -->
+	<target name="distclean" depends="clean">
+		<delete dir="${dist}"/>
+		<delete>
+			<fileset dir="webstart">
+				<include name="*.jar"/>
+			</fileset>
+		</delete>
+		<delete>
+			<fileset dir="webstart/lib">
+				<include name="*.jar"/>
+			</fileset>
+		</delete>
+		<delete>
+			<fileset dir="webstart/lib/linux">
+				<include name="*"/>
+			</fileset>
+		</delete>
+		<delete>
+			<fileset dir="webstart/lib/macosx">
+				<include name="*"/>
+			</fileset>
+		</delete>
+		<delete>
+			<fileset dir="webstart/lib/windows">
+				<include name="*"/>
+			</fileset>
+		</delete>
+		<delete>
+			<fileset dir=".">
+				<include name="*.tar.gz"/>
+				<include name="*.zip"/>
+				<include name="*.jar"/>
+			</fileset>
+		</delete>
+	</target>
+</project>
+
