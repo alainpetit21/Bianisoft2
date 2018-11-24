@@ -26,7 +26,7 @@ package com.bianisoft.engine;
 
 //Special static LWJGL library imports
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.util. glu.GLU.*;
+import static org.lwjgl.util.glu.GLU.*;
 
 //Standard Java imports
 import java.util.ArrayList;
@@ -49,7 +49,6 @@ import com.bianisoft.engine.manager.MngContextSwitcher_Popup;
 import com.bianisoft.engine.manager.MngInput;
 import com.bianisoft.engine.manager.MngAudio;
 import com.bianisoft.engine.manager.physic.MngPhysic;
-
 
 
 // Modifier order
