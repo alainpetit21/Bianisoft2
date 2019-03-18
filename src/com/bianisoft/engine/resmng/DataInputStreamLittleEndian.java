@@ -30,6 +30,7 @@ import java.io.InputStream;
 
 //Bianisoft imports
 import com.bianisoft.engine.helper.FixResFilename;
+import java.io.FileInputStream;
 
 
 public class DataInputStreamLittleEndian{
@@ -41,9 +42,15 @@ public class DataInputStreamLittleEndian{
 	public DataInputStreamLittleEndian(String p_stFilename){
 		m_stFilename= p_stFilename;
 
+            try{
 		m_stFilename= FixResFilename.fixResFilename(m_stFilename);
-		m_objIS= Thread.currentThread().getContextClassLoader().getResourceAsStream(m_stFilename);
+//		m_objIS= Thread.currentThread().getContextClassLoader().getResourceAsStream(m_stFilename);
+                m_objIS= new FileInputStream("res/"+m_stFilename);
 		m_objDIS= new DataInputStream(m_objIS);
+            }catch(Exception e1){
+                    System.out.printf("***ERROR***\nError while loading: %s", m_stFilename);
+                    e1.printStackTrace();
+            }
 	}
 
 	public int readInt(){
@@ -78,10 +85,16 @@ public class DataInputStreamLittleEndian{
    }
 
 	public void rewind(){
-		close();
+            close();
 
-		m_objIS= Thread.currentThread().getContextClassLoader().getResourceAsStream(m_stFilename);
+            try{
+//		m_objIS= Thread.currentThread().getContextClassLoader().getResourceAsStream(m_stFilename);
+                m_objIS= new FileInputStream("res/"+m_stFilename);
 		m_objDIS= new DataInputStream(m_objIS);
+            }catch(Exception e1){
+                    System.out.printf("***ERROR***\nError while loading: %s", m_stFilename);
+                    e1.printStackTrace();
+            }
 	}
 
 	public short readUnsignedShort(){

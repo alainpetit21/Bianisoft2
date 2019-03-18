@@ -29,6 +29,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 //Standard Java imports
 import java.io.InputStream;
+import java.io.FileInputStream;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.Map;
@@ -65,7 +66,8 @@ public final class ImageCache{
 
 
 		try{
-			InputStream objIS= Thread.currentThread().getContextClassLoader().getResourceAsStream(p_stRessource);
+			//InputStream objIS= Thread.currentThread().getContextClassLoader().getResourceAsStream(p_stRessource);
+			FileInputStream objIS= new FileInputStream("res/"+p_stRessource);
 			
 			texture= new Texture(createTextureID());
 
