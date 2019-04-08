@@ -112,8 +112,8 @@ public class CtxTest extends Context{
 			public void callbackStateChanged(int p_nNewState, Button p_obj){
 				if(p_nNewState == Button.ST_CLICKED){
 					m_isQuitting= true;
-					m_musTest1.moveTo(m_musTest1.getPosX() + 512, m_musTest1.getPosY(), m_musTest1.getPosZ(), m_musTest1.getAngleX(), m_musTest1.getAngleY(), m_musTest1.getAngleZ(), 3000);
-					m_musTest2.moveTo(m_musTest2.getPosX() + 512, m_musTest2.getPosY(), m_musTest2.getPosZ(), m_musTest2.getAngleX(), m_musTest2.getAngleY(), m_musTest2.getAngleZ(), 3000);
+					m_musTest1.AddMoveTo(m_musTest1.getPosX() + 512, m_musTest1.getPosY(), m_musTest1.getPosZ(), m_musTest1.getAngleX(), m_musTest1.getAngleY(), m_musTest1.getAngleZ(), 3000);
+					m_musTest2.AddMoveTo(m_musTest2.getPosX() + 512, m_musTest2.getPosY(), m_musTest2.getPosZ(), m_musTest2.getAngleX(), m_musTest2.getAngleY(), m_musTest2.getAngleZ(), 3000);
 				}
 			}
 		});
@@ -148,11 +148,11 @@ public class CtxTest extends Context{
 			m_sndTest.setPos(m_sprCursor.getPosX(), m_sprCursor.getPosY(), m_sprCursor.getPosZ());
 			m_sndTest.play();
 		}else if(p_mngInput.isMouseClicked(MngInput.M_MIDDLE)){
-			m_musTest1.moveTo(m_musTest1.getPosX(), m_musTest1.getPosY() + 512, m_musTest1.getPosZ(), m_musTest1.getAngleX(), m_musTest1.getAngleY(), m_musTest1.getAngleZ(), 3000);
-			m_musTest2.moveTo(m_musTest2.getPosX(), m_musTest2.getPosY() + 512, m_musTest2.getPosZ(), m_musTest2.getAngleX(), m_musTest2.getAngleY(), m_musTest2.getAngleZ(), 3000);
+			m_musTest1.AddMoveTo(m_musTest1.getPosX(), m_musTest1.getPosY() + 512, m_musTest1.getPosZ(), m_musTest1.getAngleX(), m_musTest1.getAngleY(), m_musTest1.getAngleZ(), 3000);
+			m_musTest2.AddMoveTo(m_musTest2.getPosX(), m_musTest2.getPosY() + 512, m_musTest2.getPosZ(), m_musTest2.getAngleX(), m_musTest2.getAngleY(), m_musTest2.getAngleZ(), 3000);
 		}else if(p_mngInput.isMouseClicked(MngInput.M_RIGHT)){
-			m_musTest1.moveTo(m_musTest1.getPosX(), m_musTest1.getPosY() - 512, m_musTest1.getPosZ(), m_musTest1.getAngleX(), m_musTest1.getAngleY(), m_musTest1.getAngleZ(), 3000);
-			m_musTest2.moveTo(m_musTest2.getPosX(), m_musTest2.getPosY() - 512, m_musTest2.getPosZ(), m_musTest2.getAngleX(), m_musTest2.getAngleY(), m_musTest2.getAngleZ(), 3000);
+			m_musTest1.AddMoveTo(m_musTest1.getPosX(), m_musTest1.getPosY() - 512, m_musTest1.getPosZ(), m_musTest1.getAngleX(), m_musTest1.getAngleY(), m_musTest1.getAngleZ(), 3000);
+			m_musTest2.AddMoveTo(m_musTest2.getPosX(), m_musTest2.getPosY() - 512, m_musTest2.getPosZ(), m_musTest2.getAngleX(), m_musTest2.getAngleY(), m_musTest2.getAngleZ(), 3000);
 		}
 
 		if(p_mngInput.isMouseDown(MngInput.M_LEFT)){
@@ -178,7 +178,7 @@ public class CtxTest extends Context{
 				m_cam2D.zoomTo(ZOOMING_LEVEL[m_nZoomLevel], 1000);
 
 				if(m_nZoomLevel <= 1)
-					m_cam2D.moveTo(0, 0, m_cam2D.getPosZ(), 0, 0, m_cam2D.getAngleZ(), 1000);
+					m_cam2D.AddMoveTo(0, 0, m_cam2D.getPosZ(), 0, 0, m_cam2D.getAngleZ(), 1000);
 			}
 		}
 

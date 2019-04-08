@@ -48,6 +48,6 @@ public class ScnNode_PhysObj_MoveTo extends ScenaricNode{
 	}
 	
 	public void start(){
-		m_physObj.moveTo(m_nPosToX, m_nPosToY, m_physObj.getPosZ(), m_physObj.getAngleX(), m_physObj.getAngleY(), m_physObj.getAngleZ(), 1000);
+		m_physObj.AddMoveTo(m_nPosToX, m_nPosToY, m_physObj.getPosZ(), m_physObj.getAngleX(), m_physObj.getAngleY(), m_physObj.getAngleZ(), 1000);
 	}
 }
